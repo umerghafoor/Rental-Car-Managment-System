@@ -43,6 +43,7 @@ public class LuxuryCar extends Car {
         return true;
     }
 
+    @Override
     public double calculateInsuranceCost() {
         return getRentalFee() * INSURANCE_COST;
     }
