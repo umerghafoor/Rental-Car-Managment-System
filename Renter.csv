@@ -1,0 +1,6 @@
+RegularRenter,1,John Doe,john.doe@example.com,030183838,123 Elm St,250.0,1
+RegularRenter,2,Jane Smith,jane.smith@example.com,031293939,456 Oak St,5.0
+FrequentRenter,3,Bob Johnson,bob.johnson@example.com,032404040,789 Pine St,300.0
+FrequentRenter,4,Alice Davis,alice.davis@example.com,033515151,101 Maple St,220.75
+CorporateRenter,5,Charlie Brown,charlie.brown@example.com,034626262,202 Birch St,180.25
+CorporateRenter,6,Emily White,emily.white@example.com,035737373,303 Cedar St,320.5

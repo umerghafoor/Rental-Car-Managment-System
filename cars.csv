@@ -1,0 +1,20 @@
+1,Toyota,Camry,2020,true,300.0,abc123,LuxuryCar
+2,Ford,Focus,2018,false,250.0,xzy456,CompactCar
+3,Honda,Civic,2019,false,275.0,def789,SuvCar
+4,BMW,3 Series,2021,false,320.0,ghi101,LuxuryCar
+5,Audi,A4,2017,false,295.0,jkl202,LuxuryCar
+6,Mercedes,C-Class,2022,false,350.0,mno303,LuxuryCar
+7,Chevrolet,Malibu,2019,false,260.0,pqr404,CompactCar
+8,Nissan,Altima,2018,false,245.0,stu505,CompactCar
+9,Toyota,RAV4,2020,false,280.0,vwx606,SuvCar
+10,Honda,CR-V,2018,false,270.0,yza707,SuvCar
+11,Ford,Escape,2021,false,290.0,bcd808,SuvCar
+12,Hyundai,Elantra,2019,false,235.0,efg909,CompactCar
+13,Kia,Optima,2020,false,250.0,hij010,CompactCar
+14,Subaru,Forester,2017,false,265.0,klm121,SuvCar
+15,Toyota,Highlander,2019,false,300.0,nop232,SuvCar
+16,Audi,Q5,2022,false,340.0,qrs343,LuxuryCar
+17,Jaguar,XE,2020,false,330.0,tuv454,LuxuryCar
+18,Volkswagen,Jetta,2018,false,220.0,wxy565,CompactCar
+19,Lexus,ES,2021,false,310.0,abc676,LuxuryCar
+20,Chevrolet,Traverse,2019,false,295.0,def787,SuvCar

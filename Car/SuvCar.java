@@ -1,0 +1,41 @@
+package Car;
+
+// • SUV:
+// o Features: Spacious, suitable for family trips.
+// o Rent Calculation Formula: Base rent + distance traveled cost.
+// o Insurable: Yes. (Insurance cost: Fixed percentage of the base rent; Damage
+// Cost: Percentage of the base rent)
+
+public class SuvCar extends Car {
+    public SuvCar(int carID, String brand, String model, int year, boolean rentalStatus, double rentalFee, String plateNumber) {
+        super(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
+    }
+
+    public void displayDetails() {
+        System.out.printf("\t%-10s %-14s %-14s %-10d %-10s %-10.2f %-10s%n",
+            getCarID(), getBrand(), getModel(), getYear(), isRentalStatus(), getRentalFee(), getPlateNumber());
+    }
+    
+
+    @Override
+    public double calculateRentalCost(double distance) {
+        // Base rent + distance traveled cost
+        return getRentalFee() + (getRentalFee() * distance);
+    }
+
+    @Override
+    public double calculateDamageCost() {
+        double damageCost = getRentalFee() * 0.1;
+        return damageCost;
+    }
+
+    @Override
+    public boolean isInsurable() {
+        return true;
+    }
+
+    public double calculateInsuranceCost() {
+        return getRentalFee() * 0.05;
+    }
+
+}
