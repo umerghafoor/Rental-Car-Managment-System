@@ -3,13 +3,13 @@ package Car;
 // • Properties: Car ID, Brand, Model, Year, Rental Status, Rental Fee, Plate number
 
 public abstract class Car {
-    private int carID;
-    private String brand;
-    private String model;
-    private int year;
-    private boolean rentalStatus;
-    private double rentalFee;
-    private String plateNumber;
+    protected int carID;
+    protected String brand;
+    protected String model;
+    protected int year;
+    protected boolean rentalStatus;
+    protected double rentalFee;
+    protected String plateNumber;
 
     public Car(int carID, String brand, String model, int year, boolean rentalStatus, double rentalFee, String plateNumber) {
         this.carID = carID;

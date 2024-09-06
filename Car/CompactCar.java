@@ -29,4 +29,19 @@ public class CompactCar extends Car {
         return 0;
     }
 
+    public void display(){
+        System.out.println("Compact Car");
+        System.out.println("Car ID: " + carID);
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Year: " + year);
+        System.out.println("Rental Fee: " + rentalFee);
+        System.out.println("Plate Number: " + plateNumber);
+    }
+
+    public void displayDetailsCompact() {
+        System.out.printf("\t%-10s %-14s %-14s %-10d %-10.2f %-10s \t Compact Car%n",
+            getCarID(), getBrand(), getModel(), getYear(), getRentalFee(), getPlateNumber());
+    }
+
 }
