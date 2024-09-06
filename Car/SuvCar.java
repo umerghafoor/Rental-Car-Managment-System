@@ -11,12 +11,6 @@ public class SuvCar extends Car {
         super(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
     }
 
-    public void displayDetails() {
-        System.out.printf("\t%-10s %-14s %-14s %-10d %-10s %-10.2f %-10s%n",
-            getCarID(), getBrand(), getModel(), getYear(), isRentalStatus(), getRentalFee(), getPlateNumber());
-    }
-    
-
     @Override
     public double calculateRentalCost(double distance) {
         // Base rent + distance traveled cost

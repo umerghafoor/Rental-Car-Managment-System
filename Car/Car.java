@@ -86,7 +86,11 @@ public abstract class Car {
         System.out.println("Plate Number: " + plateNumber);
     }
 
-    public abstract void displayDetails();
+    public void displayDetailsCompact() {
+        System.out.printf("\t%-10s %-14s %-14s %-10d %-10.2f %-10s%n",
+            getCarID(), getBrand(), getModel(), getYear(), getRentalFee(), getPlateNumber());
+    }
+
     public abstract double calculateRentalCost(double distance);
     public abstract double calculateDamageCost();
     public abstract boolean isInsurable();

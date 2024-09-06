@@ -87,4 +87,13 @@ public class Transection {
     public Date getRentDate() {
         return rentDate;
     }
+
+    public Boolean isInsured()
+    {
+        return insurance;
+    }
+
+    public boolean isDamage() {
+        return damage;
+    }
 }

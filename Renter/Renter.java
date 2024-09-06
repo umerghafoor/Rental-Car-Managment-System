@@ -94,8 +94,7 @@ public abstract class Renter {
         this.address = address;
     }
 
-    public void displayDetails()
-    {
+    public void displayDetails() {
         System.out.println("Renter ID: " + renterId);
         System.out.println("Name: " + name);
         System.out.println("Email: " + email);
@@ -107,7 +106,7 @@ public abstract class Renter {
             System.out.println("No cars rented");
         }
         for (Car car : rentedCars) {
-            car.displayDetails();
+            car.displayDetailsCompact();
         }
     }
     

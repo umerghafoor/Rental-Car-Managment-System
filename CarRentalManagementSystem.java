@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -40,89 +41,75 @@ public class CarRentalManagementSystem {
 /////////////                                     CAR                                     //////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void addCar() {
+    private boolean addCar() {
         // Ask for car type
         System.out.println("1. Compact Car");
         System.out.println("2. SUV Car");
         System.out.println("3. Luxury Car");
         System.out.print("Enter your choice: ");
-        int choice = Integer.parseInt(System.console().readLine());
-        Car car = null;
-        if (choice == 1) {
-            // (int carID, String brand, String model, int year, boolean rentalStatus, double rentalFee, String plateNumber)
-            int carID;
-            String brand;
-            String model;
-            int year;
-            boolean rentalStatus = false;
-            double rentalFee;
-            String plateNumber;
-            System.out.print("Enter car ID: ");
-            carID = Integer.parseInt(System.console().readLine());
-            System.out.print("Enter brand: ");
-            brand = System.console().readLine();
-            System.out.print("Enter model: ");
-            model = System.console().readLine();
-            System.out.print("Enter year: ");
-            year = Integer.parseInt(System.console().readLine());
-            System.out.print("Enter rental fee: ");
-            rentalFee = Double.parseDouble(System.console().readLine());
-            System.out.print("Enter plate number: ");
-            plateNumber = System.console().readLine();
-
-            car = new CompactCar(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
-        } else if (choice == 2) {
-            // (int carID, String brand, String model, int year, boolean rentalStatus, double rentalFee, String plateNumber)
-            int carID;
-            String brand;
-            String model;
-            int year;
-            boolean rentalStatus = false;
-            double rentalFee;
-            String plateNumber;
-            System.out.print("Enter car ID: ");
-            carID = Integer.parseInt(System.console().readLine());
-            System.out.print("Enter brand: ");
-            brand = System.console().readLine();
-            System.out.print("Enter model: ");
-            model = System.console().readLine();
-            System.out.print("Enter year: ");
-            year = Integer.parseInt(System.console().readLine());
-            System.out.print("Enter rental fee: ");
-            rentalFee = Double.parseDouble(System.console().readLine());
-            System.out.print("Enter plate number: ");
-            plateNumber = System.console().readLine();
-
-            car = new SuvCar(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
-        } else if (choice == 3) {
-            // (int carID, String brand, String model, int year, boolean rentalStatus, double rentalFee, String plateNumber)
-            int carID;
-            String brand;
-            String model;
-            int year;
-            boolean rentalStatus = false;
-            double rentalFee;
-            String plateNumber;
-            System.out.print("Enter car ID: ");
-            carID = Integer.parseInt(System.console().readLine());
-            System.out.print("Enter brand: ");
-            brand = System.console().readLine();
-            System.out.print("Enter model: ");
-            model = System.console().readLine();
-            System.out.print("Enter year: ");
-            year = Integer.parseInt(System.console().readLine());
-            System.out.print("Enter rental fee: ");
-            rentalFee = Double.parseDouble(System.console().readLine());
-            System.out.print("Enter plate number: ");
-            plateNumber = System.console().readLine();
-
-            car = new LuxuryCar(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
-        } else {
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(System.console().readLine());
+            if (choice < 1 || choice > 3) {
+                System.out.println("Invalid choice");
+                return false;
+            }
+        } catch (NumberFormatException e) {
             System.out.println("Invalid choice");
-            return;
+            return false;
         }
+
+        Car car = null;
+        int carID;
+        String brand;
+        String model;
+        int year;
+        double rentalFee;
+        String plateNumber;
+        boolean rentalStatus;
+
+
+        try {
+            System.out.print("Enter car ID: ");
+            carID = Integer.parseInt(System.console().readLine());
+            System.out.print("Enter brand: ");
+            brand = System.console().readLine();
+            System.out.print("Enter model: ");
+            model = System.console().readLine();
+            System.out.print("Enter year: ");
+            year = Integer.parseInt(System.console().readLine());
+            System.out.print("Enter rental fee: ");
+            rentalFee = Double.parseDouble(System.console().readLine());
+            System.out.print("Enter plate number: ");
+            plateNumber = System.console().readLine();
+            rentalStatus = false;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input");
+            return false;
+        }
+
+        for (Car c : carList) {
+            if (c.getCarID() == carID) {
+                System.out.println("Car with this ID already exists");
+                return false;
+            }
+        }
+
+        switch (choice) {
+            case 1:
+                car = new CompactCar(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
+                break;
+            case 2:
+                car = new SuvCar(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
+                break;
+            case 3:
+                car = new LuxuryCar(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);
+                break;
+        }
+
         carList.add(car);
         saveCarsToFile();
+        return true;
     }
 
     private void loadCarsFromFile() {
@@ -182,57 +169,53 @@ public class CarRentalManagementSystem {
         return null;
     }
 
-    private void removeCar() {
-        System.out.print("Enter car ID: ");
-        int carID = Integer.parseInt(System.console().readLine());
+    private boolean removeCar(int carID) {
         Car car = returnCar(carID);
         if (car == null) {
             System.out.println("Car not found");
-            return;
+            return false;
         }
         if(car.isRentalStatus()) {
             System.out.println("Car is rented. Cannot remove");
-            return;
+            return false;
         }
         carList.remove(car);
         saveCarsToFile();
+        return true;
     }
 
-    private void displayAvailableCars() {
-        System.out.println("\t" + "ID. " + "\t" + "   Brand " + "\t" + "  Model" + "\t" + "         Year" + "\t" + "    Status" + "     " + "Fee" + "\t" + "  Plate Number");
+    private void displayCars(boolean rentalStatus) {
+        System.out.println("\t" + "ID. " + "\t" + "   Brand " + "\t" + "  Model" + "\t" + "         Year" + "\t"  + "    " + "Fee" + "\t" + "     Plate Number");
         System.out.println("-----------------------------------------------------------------------------------------------------------------");
         for (Car car : carList) {
-            if (!car.isRentalStatus()) {
-                car.displayDetails();
+            if (car.isRentalStatus() == rentalStatus) {
+                car.displayDetailsCompact();
             }
         }
-    }
-
-    private void displayRentedCars()
-    {
-        System.out.println("\t" + "ID. " + "\t" + "   Brand " + "\t" + "  Model" + "\t" + "         Year" + "\t" + "    Status" + "     " + "Fee" + "\t" + "  Plate Number");
         System.out.println("-----------------------------------------------------------------------------------------------------------------");
-        for (Car car : carList) {
-            if (car.isRentalStatus()) {
-                car.displayDetails();
-            }
-        }
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////                                     Renter                                  //////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void addRenter() {
+    private boolean addRenter() {
         // (String renterId, String name, String email, String phoneNumber, String address)
         String renterId;
         String name;
         String email;
         String phoneNumber;
         String address;
-        int renterType;
+        int renterType = -1;
+
         System.out.print("Enter renter ID: ");
         renterId = System.console().readLine();
+        for (Renter renter : renterList) {
+            if (renter.getRenterId().equals(renterId)) {
+                System.out.println("Renter with this ID already exists");
+                return false;
+            }
+        }
         System.out.print("Enter name: ");
         name = System.console().readLine();
         System.out.print("Enter email: ");
@@ -241,11 +224,19 @@ public class CarRentalManagementSystem {
         phoneNumber = System.console().readLine();
         System.out.print("Enter address: ");
         address = System.console().readLine();
+
         System.out.println("1. Normal Renter");
         System.out.println("2. Corporate Renter");
         System.out.println("3. Frequent Renter");
         System.out.print("Enter your choice: ");
-        renterType = Integer.parseInt(System.console().readLine());
+
+        try {
+            renterType = Integer.parseInt(System.console().readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid choice");
+            return false;
+        }
+
         if (renterType == 1) {
             Renter renter = new RegularRenter(renterId, name, email, phoneNumber, address);
             renterList.add(renter);
@@ -257,9 +248,10 @@ public class CarRentalManagementSystem {
             renterList.add(renter);
         } else {
             System.out.println("Invalid renter type");
-            return;
+            return false;
         }
         saveRentersToFile();
+        return true;
     }
 
     private void loadRentersFromFile() {
@@ -330,20 +322,19 @@ public class CarRentalManagementSystem {
         return null;
     }
 
-    private void removeRenter() {
-        System.out.print("Enter renter ID: ");
-        String renterId = System.console().readLine();
+    private boolean removeRenter(String renterId) {
         Renter renter = returnRenter(renterId);
         if (renter == null) {
             System.out.println("Renter not found");
-            return;
+            return false;
         }
         if(renter.getRentedCars().size() > 0) {
             System.out.println("Renter has rented cars. Cannot remove");
-            return;
+            return false;
         }
         renterList.remove(renter);
         saveRentersToFile();
+        return true;
     }
 
     private void displayRenter() {
@@ -373,7 +364,11 @@ public class CarRentalManagementSystem {
                 if (!details[4].equals("null")) {
                     returnDate = new Date(Long.parseLong(details[4]));
                 }
+                boolean insurance = Boolean.parseBoolean(details[5]);
+                boolean damage = Boolean.parseBoolean(details[6]);
                 Transection transection = new Transection(car, renter, totalCost, rentDate, returnDate);
+                transection.setInsurance(insurance);
+                transection.setDamage(damage);
                 transectionsList.add(transection);
             }
         } catch (IOException e) {
@@ -392,6 +387,18 @@ public class CarRentalManagementSystem {
                     writer.write(transection.getRentDate().getTime() + "");
                 } else {
                     writer.write("null");
+                }
+                writer.write(",");
+                if (transection.isInsured()) {
+                    writer.write("true");
+                } else {
+                    writer.write("false");
+                }
+                writer.write(",");
+                if (transection.isDamage()) {
+                    writer.write("true");
+                } else {
+                    writer.write("false");
                 }
                 writer.newLine();
             }
@@ -529,12 +536,95 @@ public class CarRentalManagementSystem {
         System.out.println("-----------------------------------------------------------------------------------------------------------------");
     }
 // • Provide an option to add insurance if the rented car is insurable.
-// • If insurance is added, calculate and include insurance cost in the total.
-// • Calculate and display damage cost based on the car type, and insurance status upon
-// return.
-// • All rent transactions are stored in CRMS.
+    private void addInsurance(int carID, String renterId) {
+        Car car = returnCar(carID);
+        if (car == null) {
+            System.out.println("Car not found");
+            return;
+        }
+        if (!car.isRentalStatus()) {
+            System.out.println("Car is not rented");
+            return;
+        }
+        Renter renter = returnRenter(renterId);
+        if (renter == null) {
+            System.out.println("Renter not found");
+            return;
+        }
+        if (!renter.getRentedCars().contains(car)) {
+            System.out.println("Renter has not rented this car");
+            return;
+        }
+        Transection transection = getTransection(car, renter);
+        if (transection == null) {
+            System.out.println("Transection not found");
+            return;
+        }
+        if (!car.isInsurable()) {
+            System.out.println("Car is not insurable");
+            return;
+        }
+        if(transection.isInsured())
+        {
+            System.out.println("Car Already has Insurence");
+            return;
+        }
+        if (transection.ispendingTransaction()) {
+            System.out.println("Transection is pending");
+            System.out.println("Transaction amount: " + transection.getTotalCost());
+            System.out.print("Do you want to add insurance? (y/n): ");
+            String choice = System.console().readLine();
+            if (choice.equals("y")) {
+                transection.setInsurance(true);
+            }
+        }
+    }
+// • Calculate and display damage cost based on the car type, and insurance status upon return.
+    private void damageCar(int carID, String renterId) 
+    {
+        Car car = returnCar(carID);
+        if (car == null) {
+            System.out.println("Car not found");
+            return;
+        }
+        if (!car.isRentalStatus()) {
+            System.out.println("Car is not rented");
+            return;
+        }
+        Renter renter = returnRenter(renterId);
+        if (renter == null) {
+            System.out.println("Renter not found");
+            return;
+        }
+        if (!renter.getRentedCars().contains(car)) {
+            System.out.println("Renter has not rented this car");
+            return;
+        }
+        Transection transection = getTransection(car, renter);
+        if (transection == null) {
+            System.out.println("Transection not found");
+            return;
+        }
+        if (transection.isInsured())
+        {
+            System.out.println("Car Already has Insurence");
+            return;
+        }
+        if (transection.ispendingTransaction()) {
+            System.out.println("Transection is pending");
+            System.out.println("Transaction amount: " + transection.getTotalCost());
+            System.out.print("Do you want to add damage cost? (y/n): ");
+            String choice = System.console().readLine();
+            if (choice.equals("y")) {
+                transection.setDamage(true);
+            }
+        }
+    }
 
     public void start() {
+
+        int carID = -1;
+        String renterId = null;
         
         // Menu in Loop
         int choice = 1;
@@ -551,6 +641,8 @@ public class CarRentalManagementSystem {
             System.out.println("9. Return Car");
             System.out.println("10. Display Rental Details");
             System.out.println("11. Display Total Rental Cost");
+            System.out.println("12. Add Insurance");
+            System.out.println("13. Damage Car");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             try {
@@ -560,42 +652,73 @@ public class CarRentalManagementSystem {
             }
             switch (choice) {
                 case 1:
-                    addCar();
+                    if (addCar())
+                        System.out.println("Car added successfully");
+                    else
+                        System.out.println("Car add failed");
                     break;
                 case 2:
-                    removeCar();
+                    System.out.print("Enter car ID: ");
+                    try {
+                        carID = Integer.parseInt(System.console().readLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid car ID");
+                        break;
+                    }
+                    if (removeCar(carID))
+                        System.out.println("Car removed successfully");
+                    else
+                        System.out.println("Car remove failed");
                     break;
                 case 3:
-                    displayAvailableCars();
+                    displayCars(false);
                     break;
                 case 4:
-                    displayRentedCars();
+                    displayCars(true);
                     break;
                 case 5:
-                    addRenter();
+                    if (addRenter())
+                        System.out.println("Renter added successfully");
+                    else
+                        System.out.println("Renter add failed");
                     break;
                 case 6:
-                    removeRenter();
+                    System.out.print("Enter renter ID: ");
+                    renterId = System.console().readLine();
+                    if (removeRenter(renterId))
+                        System.out.println("Renter removed successfully");
+                    else
+                        System.out.println("Renter remove failed");
                     break;
                 case 7:
                     displayRenter();
                     break;
                 case 8:
-                    System.out.print("Enter car ID: ");
-                    int carID = Integer.parseInt(System.console().readLine());
-                    System.out.print("Enter renter ID: ");
-                    String renterId = System.console().readLine();
+                    try {
+                        System.out.print("Enter car ID: ");
+                        carID = Integer.parseInt(System.console().readLine());
+                        System.out.print("Enter renter ID: ");
+                        renterId = System.console().readLine();
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input");
+                        break;
+                    }
                     if(rentCar(carID, renterId))
                         System.out.println("Car rented successfully");
                     else
                         System.out.println("Car rent failed");
                     break;
                 case 9:
-                    System.out.print("Enter car ID: ");
-                    carID = Integer.parseInt(System.console().readLine());
-                    System.out.print("Enter renter ID: ");
-                    renterId = System.console().readLine();
-                    System.out.print("Enter distance: ");
+                    try {
+                        System.out.print("Enter car ID: ");
+                        carID = Integer.parseInt(System.console().readLine());
+                        System.out.print("Enter renter ID: ");
+                        renterId = System.console().readLine();
+                        System.out.print("Enter distance: ");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input");
+                        break;
+                    }
                     double distance = Double.parseDouble(System.console().readLine());
                     if(returnCar(carID, renterId, distance))
                         System.out.println("Car returned successfully");
@@ -607,6 +730,20 @@ public class CarRentalManagementSystem {
                     break;
                 case 11:
                     displayTotalRentalCost();
+                    break;
+                case 12:
+                    System.out.print("Enter car ID: ");
+                    carID = Integer.parseInt(System.console().readLine());
+                    System.out.print("Enter renter ID: ");
+                    renterId = System.console().readLine();
+                    addInsurance(carID, renterId);
+                    break;
+                case 13:
+                    System.out.print("Enter car ID: ");
+                    carID = Integer.parseInt(System.console().readLine());
+                    System.out.print("Enter renter ID: ");
+                    renterId = System.console().readLine();
+                    damageCar(carID, renterId);
                     break;
                 case 0:
                     System.out.println("Exiting...");
