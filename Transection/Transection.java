@@ -8,6 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+/**
+ * The `Transection` class represents a transaction involving a car rental, storing details such as the
+ * car, renter, total cost, dates, insurance status, and damage status.
+ */
 public class Transection {
     private static final String LOG_FILE = "log.csv";
     private Car car;

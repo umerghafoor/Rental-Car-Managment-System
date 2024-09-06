@@ -6,6 +6,10 @@ package Car;
 // o Insurable: Yes. (Insurance cost: Fixed percentage of the base rent; Damage
 // Cost: Percentage of the base rent)
 
+/**
+ * The `SuvCar` class extends `Car` and provides methods for calculating rental and insurance costs,
+ * displaying car details, and determining insurability.
+ */
 public class SuvCar extends Car {
     public SuvCar(int carID, String brand, String model, int year, boolean rentalStatus, double rentalFee, String plateNumber) {
         super(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);

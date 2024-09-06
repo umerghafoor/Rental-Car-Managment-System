@@ -1,7 +1,9 @@
 package Car;
-// Car Types:
-// • Properties: Car ID, Brand, Model, Year, Rental Status, Rental Fee, Plate number
-
+/**
+ * The `Car` class is an abstract class that represents a generic car with properties like car ID,
+ * brand, model, year, rental status, rental fee, and plate number, along with methods for displaying
+ * car details and calculating rental, damage, and insurance costs.
+ */
 public abstract class Car {
     protected int carID;
     protected String brand;

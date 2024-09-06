@@ -7,6 +7,10 @@
 
 package Car;
 
+/**
+ * The LuxuryCar class extends the Car class and includes methods for calculating rental costs, damage
+ * costs, insurance costs, and displaying car details.
+ */
 public class LuxuryCar extends Car {
     private static final double INSURANCE_COST = 0.1;
     private static final double DAMAGE_COST = 0.2;

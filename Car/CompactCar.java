@@ -4,6 +4,10 @@ package Car;
 // o Rent Calculation Formula: Base rent + distance traveled cost.
 // o Insurable: No.
 
+/**
+ * The `CompactCar` class extends `Car` and implements methods for calculating rental and damage costs,
+ * with specific display methods for compact cars.
+ */
 public class CompactCar extends Car {
     public CompactCar(int carID, String brand, String model, int year, boolean rentalStatus, double rentalFee, String plateNumber) {
         super(carID, brand, model, year, rentalStatus, rentalFee, plateNumber);

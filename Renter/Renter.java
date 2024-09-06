@@ -7,6 +7,11 @@ import Car.Car;
 // Renter Types:
 // • Properties: Renter ID, Name, Email, Rented Cars (List of Cars), Total Rental Fee, phone number, address
 
+/**
+ * The `Renter` class represents a renter with properties such as renter ID, name, email, rented cars,
+ * total rental fee, phone number, and address, along with methods for renting and returning cars,
+ * applying discounts, and displaying details.
+ */
 public abstract class Renter {
     private String renterId;
     private String name;

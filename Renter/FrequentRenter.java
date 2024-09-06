@@ -1,5 +1,8 @@
 package Renter;
 
+/**
+ * The `FrequentRenter` class extends `Renter` and applies a 10 percent discount to the rental fee.
+ */
 public class FrequentRenter extends Renter {
     private static final double DISCOUNT = 0.9;//10 percent discount
 
